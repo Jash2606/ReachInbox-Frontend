@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TopOnebox from './components/topOneBox';
+import LeftBar from './components/leftBar';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   return (
     <div>
       <TopOnebox />
+      <LeftBar />
     </div>
   );
 }
