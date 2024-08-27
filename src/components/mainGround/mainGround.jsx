@@ -58,7 +58,7 @@ const MainGround = () => {
   if (loading) {
     return (
       <div className={`flex h-screen w-full justify-center items-center ${darkview ? "bg-black" : "bg-white"}`}>
-        <AiOutlineLoading size={60} className="animate-spin" />
+        <AiOutlineLoading size={60} className={`animate-spin ${darkview ? "text-white" : "text-black"}`} />
       </div>
     );
   }

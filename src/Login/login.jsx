@@ -19,7 +19,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     window.location.href =
-      "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=http://localhost:5173/";
+      "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://reach-inbox-frontend-6oje.vercel.app/";
   };
   return (
     <div>
