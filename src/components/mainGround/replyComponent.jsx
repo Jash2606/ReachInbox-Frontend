@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import { BsLightningChargeFill } from "react-icons/bs";
 import {
   FaCaretDown,
@@ -15,9 +14,9 @@ import { RxCross2 } from "react-icons/rx";
 import { TbSquareLetterA } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { replybuttonUpdate } from "../../features/feature";
+
 const ReplyComponent = () => {
   const darkview = useSelector((state) => state.counter.darkView);
-
   const dispatch = useDispatch();
   const [replyData, setReplyData] = useState({
     to: "",
@@ -25,8 +24,8 @@ const ReplyComponent = () => {
     subject: "",
     body: "",
   });
+
   const handleSendReply = async () => {
-    
     const token = localStorage.getItem("token");
     try {
       const res = await axios.post(
@@ -37,7 +36,6 @@ const ReplyComponent = () => {
           subject: replyData.subject,
           body: replyData.body,
         },
-
         {
           headers: {
             Authorization: token,
@@ -69,12 +67,12 @@ const ReplyComponent = () => {
 
   return (
     <div
-      className={` ${
+      className={`${
         darkview ? "bg-gray-400/25" : "bg-slate-400/25"
       } fixed top-0 left-0 flex justify-center items-center h-full w-full z-20`}
     >
       <div
-        className={` ${
+        className={`${
           darkview ? "bg-[#141517] text-white" : "bg-[#dbdee7] text-black"
         } w-1/2 mt-16 h-4/5 rounded-lg border border-[#41464B]`}
       >
@@ -86,10 +84,9 @@ const ReplyComponent = () => {
           <div className={`pl-4 text-sm`}>Reply</div>
           <div
             onClick={() => {
-              dispatch(replybuttonUpdate());
+              dispatch(replybuttonUpdate(0));
             }}
           >
-            {/* Close button */}
             <RxCross2
               className={`text-xl ${
                 darkview ? "bg-[#141517] text-white" : "bg-[#dbdee7] text-black"
@@ -100,7 +97,7 @@ const ReplyComponent = () => {
         <div
           className={`flex text-sm py-2 ${
             darkview ? "bg-[#141517] text-white" : "bg-[#dbdee7] text-black"
-          }border-b border-[#41464B] pl-8`}
+          } border-b border-[#41464B] pl-8`}
         >
           <div
             className={`${
@@ -184,7 +181,7 @@ const ReplyComponent = () => {
               darkview
                 ? "bg-[#141517] text-[#BAB9BD]"
                 : "bg-[#dbdee7] text-black"
-            }  ml-4 w-full h-full`}
+            } ml-4 w-full h-full`}
             placeholder="Message Body"
             name="body"
             value={replyData.body}
@@ -213,22 +210,22 @@ const ReplyComponent = () => {
           </div>
           <div className={`flex space-x-3 text-xl text-[#ADADAD]`}>
             <div>
-              <TbSquareLetterA />
+              <TbSquareLetterA size={20}/>
             </div>
             <div>
-              <IoLinkSharp />
+              <IoLinkSharp size={20}/>
             </div>
             <div>
-              <FaImage />
+              <FaImage size={20}/>
             </div>
             <div>
-              <FaRegSmile />
+              <FaRegSmile size={20}/>
             </div>
             <div>
-              <FaUserMinus />
+              <FaUserMinus size={20}/>
             </div>
             <div>
-              <IoMdCode />
+              <IoMdCode size={20} />
             </div>
           </div>
         </div>

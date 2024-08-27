@@ -1,28 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RiReplyFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
+import { AiOutlineLoading } from "react-icons/ai";
+import { replybuttonUpdate } from "../../features/feature";
 import Createral from "./createral";
 import RightSide from "./rightSide";
 import Inbox from "./inbox";
-
-import { AiOutlineLoading } from "react-icons/ai";
 import ReplyComponent from "./replyComponent";
-import { replybuttonUpdate } from "../../features/feature";
 import DeletionPop from "./deletionPop";
 
 const MainGround = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  let replyisOn = useSelector((state) => state.counter.replyButton);
-  let darkview = useSelector((state) => state.counter.darkView);
-  let deletionButton = useSelector((state) => state.counter.deletion);
+  const replyisOn = useSelector((state) => state.counter.replyButton);
+  const darkview = useSelector((state) => state.counter.darkView);
+  const deletionButton = useSelector((state) => state.counter.deletion);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    const fetchData = async () => {
       try {
-        console.log("this me main")
         const token = localStorage.getItem("token");
         const res = await axios.get(
           "https://hiring.reachinbox.xyz/api/v1/onebox/list",
@@ -32,30 +30,37 @@ const MainGround = () => {
             },
           }
         );
-
-        const r = await res.data.data;
-        setData(r);
-        console.log(r)
+        setData(res.data.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
-    }, 500);
+    };
 
+    const interval = setInterval(fetchData, 500);
     return () => clearInterval(interval);
   }, []);
 
-   if (loading) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "r" || e.key === "R") {
+        dispatch(replybuttonUpdate(1));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [dispatch]);
+
+
+  if (loading) {
     return (
-      <div
-        className={`bg-[#ECEFF3] text-[#5B5F66] ${
-          darkview ? "bg-black" : "bg-white"
-        } flex h-screen w-full justify-center items-center `}
-      >
-        <AiOutlineLoading size={60} className=" animate-spin" />
+      <div className={`flex h-screen w-full justify-center items-center ${darkview ? "bg-black" : "bg-white"}`}>
+        <AiOutlineLoading size={60} className="animate-spin" />
       </div>
     );
-  } 
+  }
 
   return (
     <div
@@ -82,8 +87,9 @@ const MainGround = () => {
         onClick={() => {
           dispatch(replybuttonUpdate(1));
         }}
+        
       >
-        <RiReplyFill className="mr-2 text-xl" /> Reply
+        <RiReplyFill className="mr-2 text-xl"  /> Reply
       </div>
       {replyisOn === 1 ? <ReplyComponent /> : null}
       {deletionButton === 1 ? <DeletionPop /> : null}
