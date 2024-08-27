@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { IoReload } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaAngleDown } from "react-icons/fa";
-import Mail from "./Mail";
+import Mail from "./mail";
 const Inbox = () => {
   let noOfMessage = useSelector((state) => state.counter.noOfMsg);
   let darkview = useSelector((state) => state.counter.darkView);
