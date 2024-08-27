@@ -3,7 +3,7 @@ import axios from "axios";
 import { RiReplyFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineLoading } from "react-icons/ai";
-import { replybuttonUpdate } from "../../features/feature";
+import { replybuttonUpdate, deleteButton } from "../../features/feature";
 import Createral from "./createral";
 import RightSide from "./rightSide";
 import Inbox from "./inbox";
@@ -46,13 +46,14 @@ const MainGround = () => {
     const handleKeyDown = (e) => {
       if (e.key === "r" || e.key === "R") {
         dispatch(replybuttonUpdate(1));
+      } else if (e.key === "d" || e.key === "D") {
+        dispatch(deleteButton(1));
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [dispatch]);
-
 
   if (loading) {
     return (
@@ -87,7 +88,6 @@ const MainGround = () => {
         onClick={() => {
           dispatch(replybuttonUpdate(1));
         }}
-        
       >
         <RiReplyFill className="mr-2 text-xl"  /> Reply
       </div>
