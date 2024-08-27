@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useSelector , useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TopOnebox from './components/topOneBox';
 import LeftBar from './components/leftBar';
 import Center from './components/center';
+import MainGround from './components/mainGround/mainGround';
 import './App.css';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
     <div>
       <TopOnebox />
       <LeftBar />
-      <Center />
+      { selectedUrl === "/inbox" ? <MainGround /> : <Center />}
     </div>
   );
 }
